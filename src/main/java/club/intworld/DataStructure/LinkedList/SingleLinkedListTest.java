@@ -4,20 +4,26 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @Component
 @Slf4j
 public class SingleLinkedListTest implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         SingleLinkedList list = createList();
-        isHuiWen(list);
+        list.printList();
+        if(isHuiWen(list)) {
+            log.info("是回文");
+        } else {
+            log.info("不是回文");
+        }
     }
 
     private SingleLinkedList createList() {
-        SingleLinkedList list = new SingleLinkedList();
         Node node1 = new Node();
         node1.data = "l";
-        list.addNode(node1);
+        SingleLinkedList list = new SingleLinkedList(node1);
 
         Node node2 = new Node();
         node2.data = "e";
@@ -28,7 +34,7 @@ public class SingleLinkedListTest implements CommandLineRunner {
         list.addNode(node3);
 
         Node node4 = new Node();
-        node4.data = "e";
+        node4.data = "a";
         list.addNode(node4);
 
         Node node5 = new Node();
@@ -38,32 +44,31 @@ public class SingleLinkedListTest implements CommandLineRunner {
         return list;
     }
 
-    private void isHuiWen(SingleLinkedList list) {
-        if (list.size < 2) {
-            log.info("链表的长度过小，无法判断是否是回文！");
+    private boolean isHuiWen(SingleLinkedList list) throws IOException, ClassNotFoundException {
+        if (list == null) {
+            log.info("链表不存在！");
+            return false;
         }
-        int s = 1;
-        int f = 1;
-        int times = (list.size-1)/2;
-
-        Node prev = list.head;
-        Node slow = prev.next;     //到达第一个结点
-        Node next = slow.next;
-        for (int i = 0; i < 1; i++) {
-            slow.next = prev;
-            prev = slow;
-            slow = next;
-            next = slow.next;
+        if (list.size == 1 ) {
+            return true;
         }
 
-        for (int i = 0; i < 1; i++) {
-            slow.next = next;
-            next = slow;
-            slow = prev;
+        //对链表做深度复制和反转
+        SingleLinkedList reverse = list.deepCopy().reverse();
 
+        //计算需要比较对次数
+        int times = list.size/2;
 
+        //比较两个链表的数据
+        Node head1 = list.head;
+        Node head2 = reverse.head;
+        for (int i = 0; i < times; i++) {
+            if (!head1.data.equals(head2.data)) {
+                return false;
+            }
+            head1 = head1.next;
+            head2 = head2.next;
         }
-        prev.next = slow;
-        list.printList();
+        return true;
     }
 }
