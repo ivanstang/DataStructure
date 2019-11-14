@@ -51,6 +51,14 @@ public class SingleLinkedList implements Serializable {
         this.size++;
     }
 
+    /* 在链表头部增加结点 */
+    public void addNodeAtFirst(Node node) {
+        Node temp = head;
+        node.next = temp;
+        this.head = node;
+        this.size++;
+    }
+
     /* 在链表指定位置插入结点 */
     public void insertNode(Node node, int index) {
         if (index > size || index < 1) {

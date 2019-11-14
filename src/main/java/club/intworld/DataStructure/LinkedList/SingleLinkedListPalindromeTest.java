@@ -8,7 +8,7 @@ import java.io.IOException;
 
 //@Component
 @Slf4j
-public class PalindromeTest implements CommandLineRunner {
+public class SingleLinkedListPalindromeTest implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         SingleLinkedList list = createList();
