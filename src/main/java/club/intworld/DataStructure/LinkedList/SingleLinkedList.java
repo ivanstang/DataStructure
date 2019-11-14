@@ -8,15 +8,15 @@ import java.io.*;
 public class SingleLinkedList implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public int size;
-    public Node head;
+    int size;
+    Node head;
 
-    public SingleLinkedList(Node head) {
+    SingleLinkedList(Node head) {
         this.head = head;
         this.size = 1;
     }
 
-    public SingleLinkedList deepCopy() throws IOException, ClassNotFoundException {
+    SingleLinkedList deepCopy() throws IOException, ClassNotFoundException {
         //序列化
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
@@ -29,7 +29,7 @@ public class SingleLinkedList implements Serializable {
     }
 
     /* 打印链表内容 */
-    public void printList() {
+    void printList() {
         log.info("该链表内共有{}个结点", size);
 
         Node temp = head;
@@ -42,7 +42,7 @@ public class SingleLinkedList implements Serializable {
     }
 
     /* 在链表尾部增加结点 */
-    public void addNode(Node node) {
+    void addNode(Node node) {
         Node temp = head;
         while (temp.next != null) {
             temp = temp.next;
@@ -52,9 +52,8 @@ public class SingleLinkedList implements Serializable {
     }
 
     /* 在链表头部增加结点 */
-    public void addNodeAtFirst(Node node) {
-        Node temp = head;
-        node.next = temp;
+    void addNodeAtFirst(Node node) {
+        node.next = head;
         this.head = node;
         this.size++;
     }
@@ -77,10 +76,88 @@ public class SingleLinkedList implements Serializable {
         this.size++;
     }
 
-    /* 转置（倒排）链表 */
-    public SingleLinkedList reverse() {
+    /* 在链表指定位置删除结点 */
+    void deleteNode(int index) {
+        if (index > size || index < 1) {
+            log.info("该链表内共有{}个结点", size);
+            log.info("输入的位置 {} 已超出当前链表的范围",index);
+            return;
+        }
+        if (size == 1) {
+            log.info("该链表内仅剩下一个结点了，不能被删除！");
+            return;
+        }
+        Node temp = head;
         Node prev = null;
-        Node next = null;
+        for (int i = 1; i < index; i++) {
+            prev = temp;
+            temp = temp.next;
+        }
+        if (prev == null) {     //删除的是头结点
+            this.head = temp.next;
+        } else {
+            prev.next = temp.next;
+        }
+        this.size--;
+    }
+
+    /* 查找指定位置的结点
+    *  返回两个Node：
+    *       第1个是指定位置之前的Node
+    *       第2个是指定位置的Node
+    *       时间复杂度O(n)
+    */
+    private Node[] findNode(int index) {
+        Node temp = this.head;
+        Node prev = null;
+        for (int i = 1; i < index; i++) {
+            prev = temp;
+            temp = temp.next;
+        }
+        return new Node[]{prev,temp};
+    }
+
+    /* 移动指定结点至指定位置 */
+    void moveNode(int from, int to) {
+        if (from == to) {
+            return;
+        }
+        if (from <= 0 || to <= 0 || from > this.size || to > this.size) {
+            log.info("参数超出当前链表的范围");
+            return;
+        }
+        Node[] fromNodes = findNode(from);
+        Node[] toNodes = findNode(to);
+
+        if (from < to) {
+            //移走
+            if (fromNodes[0] == null) {
+                this.head = fromNodes[1].next;
+            } else {
+                fromNodes[0].next = fromNodes[1].next;
+            }
+
+            //插入
+            fromNodes[1].next = toNodes[1].next;
+            toNodes[1].next = fromNodes[1];
+        } else {
+            //移走
+            fromNodes[0].next = fromNodes[1].next;
+
+            //插入
+            if (toNodes[0] == null) {
+                this.head = fromNodes[1];
+            } else {
+                toNodes[0].next = fromNodes[1];
+            }
+            fromNodes[1].next = toNodes[1];
+        }
+    }
+
+    /* 转置（倒排）链表 */
+    SingleLinkedList reverse() {
+        Node prev = null;
+        Node next;
         while (head != null) {
             next = head.next;
             head.next = prev;
