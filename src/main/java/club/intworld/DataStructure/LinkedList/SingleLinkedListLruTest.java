@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.lang.model.element.Element;
 import java.util.Random;
 
-@Component
+//@Component
 @Slf4j
 public class SingleLinkedListLruTest implements CommandLineRunner {
     private int used = 0;
