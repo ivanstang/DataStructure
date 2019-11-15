@@ -30,6 +30,11 @@ public class SingleLinkedList implements Serializable {
 
     /* 打印链表内容 */
     void printList() {
+        if (this.hasLoop()) {
+            log.warn("该链表中有死循环，无法进行操作！");
+            return;
+        }
+
         log.info("该链表内共有{}个结点", size);
 
         Node temp = head;
@@ -43,6 +48,11 @@ public class SingleLinkedList implements Serializable {
 
     /* 在链表尾部增加结点 */
     void addNode(Node node) {
+        if (this.hasLoop()) {
+            log.warn("该链表中有死循环，无法进行操作！");
+            return;
+        }
+
         Node temp = head;
         while (temp.next != null) {
             temp = temp.next;
@@ -60,6 +70,11 @@ public class SingleLinkedList implements Serializable {
 
     /* 在链表指定位置插入结点 */
     public void insertNode(Node node, int index) {
+        if (this.hasLoop()) {
+            log.warn("该链表中有死循环，无法进行操作！");
+            return;
+        }
+
         if (index > size || index < 1) {
             log.info("该链表内共有{}个结点", size);
             log.info("输入的位置已超出当前链表的范围");
@@ -78,6 +93,11 @@ public class SingleLinkedList implements Serializable {
 
     /* 在链表指定位置删除结点 */
     void deleteNode(int index) {
+        if (this.hasLoop()) {
+            log.warn("该链表中有死循环，无法进行操作！");
+            return;
+        }
+
         if (index > size || index < 1) {
             log.info("该链表内共有{}个结点", size);
             log.info("输入的位置 {} 已超出当前链表的范围",index);
@@ -103,8 +123,8 @@ public class SingleLinkedList implements Serializable {
 
     /* 查找指定位置的结点
     *  返回两个Node：
-    *       第1个是指定位置之前的Node
-    *       第2个是指定位置的Node
+    *       第1个是指定位置之前的结点
+    *       第2个是指定位置的结点
     *       时间复杂度O(n)
     */
     private Node[] findNode(int index) {
@@ -119,6 +139,11 @@ public class SingleLinkedList implements Serializable {
 
     /* 移动指定结点至指定位置 */
     void moveNode(int from, int to) {
+        if (this.hasLoop()) {
+            log.warn("该链表中有死循环，无法进行操作！");
+            return;
+        }
+
         if (from == to) {
             return;
         }
@@ -155,7 +180,12 @@ public class SingleLinkedList implements Serializable {
     }
 
     /* 转置（倒排）链表 */
-    SingleLinkedList reverse() {
+    void reverse() {
+        if (this.hasLoop()) {
+            log.warn("该链表中有死循环，无法进行操作！");
+            return;
+        }
+
         Node prev = null;
         Node next;
         while (head != null) {
@@ -165,6 +195,29 @@ public class SingleLinkedList implements Serializable {
             head = next;
         }
         this.head = prev;
-        return this;
+    }
+
+    /* 检查链表中是否有环 */
+    boolean hasLoop() {
+        Node temp1 = this.head;
+        for (int i = 0; i < size; i++) {
+            Node temp2 = temp1;
+            for (int j = 0; j < size; j++) {
+                if (temp2 == null) {
+                    break;
+                }
+                if (temp2.next == temp1) {
+                    return true;
+                }
+                temp2 = temp2.next;
+            }
+            temp1 = temp1.next;
+        }
+        return false;
+    }
+
+    /* 合并两个有序链表 */
+    SingleLinkedList combineOrderedList(SingleLinkedList list) {
+
     }
 }

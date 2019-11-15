@@ -9,7 +9,7 @@ import java.util.Random;
 
 import static java.lang.System.*;
 
-@Component
+//@Component
 @Slf4j
 public class ArrayLruTest implements CommandLineRunner {
     private int[] lru;

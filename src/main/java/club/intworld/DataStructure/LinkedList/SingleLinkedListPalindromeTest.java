@@ -54,7 +54,8 @@ public class SingleLinkedListPalindromeTest implements CommandLineRunner {
         }
 
         //对链表做深度复制和反转
-        SingleLinkedList reverse = list.deepCopy().reverse();
+        SingleLinkedList reverse = list.deepCopy();
+        reverse.reverse();
 
         //计算需要比较对次数
         int times = list.size/2;
