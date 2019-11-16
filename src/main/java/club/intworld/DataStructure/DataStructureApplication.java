@@ -1,8 +1,5 @@
 package club.intworld.DataStructure;
 
-import club.intworld.DataStructure.LinkedList.Node;
-import club.intworld.DataStructure.LinkedList.SingleLinkedList;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

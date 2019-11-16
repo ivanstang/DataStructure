@@ -1,10 +1,8 @@
-package club.intworld.DataStructure.LinkedList;
+package club.intworld.DataStructure.list;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import static java.lang.System.*;

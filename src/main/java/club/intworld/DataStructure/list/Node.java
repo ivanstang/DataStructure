@@ -1,18 +1,18 @@
-package club.intworld.DataStructure.LinkedList;
+package club.intworld.DataStructure.list;
 
 import java.io.Serializable;
 
 public class Node<E> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    E data;
-    Node<E> next;
+    public E data;
+    public Node<E> next;
 
-    Node() {
+    public Node() {
         this.next = null;
     }
 
-    Node(E data) {
+    public Node(E data) {
         this.next = null;
         this.data = data;
     }

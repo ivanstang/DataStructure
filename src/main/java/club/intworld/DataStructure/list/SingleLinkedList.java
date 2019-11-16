@@ -1,15 +1,22 @@
-package club.intworld.DataStructure.LinkedList;
+package club.intworld.DataStructure.list;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class SingleLinkedList implements Serializable {
     private static final long serialVersionUID = 1L;
 
     int size;
-    Node head;
+    public Node head;
+
+    public SingleLinkedList() {
+        this.head = null;
+        this.size = 0;
+    }
 
     SingleLinkedList(Node head) {
         this.head = head;
@@ -61,7 +68,11 @@ public class SingleLinkedList implements Serializable {
     /* 在链表头部增加结点
     *  时间复杂度O(1)
     */
-    void addNodeAtFirst(Node node) {
+    public void addNodeAtFirst(Node node) {
+        if (this.head == null) {
+            this.head = node;
+            return;
+        }
         node.next = head;
         this.head = node;
         this.size++;
@@ -112,7 +123,6 @@ public class SingleLinkedList implements Serializable {
 
     /* 删除链表倒数第n个结点 */
     void deleteIndexFromEnd(int indexFromEnd) {
-
         this.deleteNode(this.size-indexFromEnd+1);
     }
 
@@ -189,6 +199,8 @@ public class SingleLinkedList implements Serializable {
             head = next;
         }
         this.head = prev;
+        List<Integer> list = new ArrayList<>();
+        list.size();
     }
 
     /* 检查链表中是否有环 */
