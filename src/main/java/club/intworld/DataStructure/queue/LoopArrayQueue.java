@@ -3,8 +3,8 @@ package club.intworld.DataStructure.queue;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class LoopArrayQueue {
-    String[] items;
+public class LoopArrayQueue<T> {
+    T[] items;
     int n;              //队列长度
     int head;           //队列头指针
     int tail;           //队列尾指针
@@ -13,10 +13,10 @@ public class LoopArrayQueue {
         this.n = n;
         this.head = 0;
         this.tail = 0;
-        this.items = new String[n];
+        this.items = (T[]) new Object[n];
     }
 
-    public boolean enqueue(String item) {
+    public boolean enqueue(T item) {
         if ((head-tail == 1) || (head-tail == 1-n)) {
             log.warn("队列已满，无法入队！");
             return false;
@@ -30,12 +30,12 @@ public class LoopArrayQueue {
         return true;
     }
 
-    public String dequeue() {
+    public T dequeue() {
         if (head == tail) {
             log.warn("队列已空，无数据可以出队");
             return null;
         }
-        String item = items[head];
+        T item = items[head];
         if (head == n-1) {
             head = 0;
         } else {

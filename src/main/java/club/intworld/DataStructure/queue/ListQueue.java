@@ -5,8 +5,8 @@ import club.intworld.DataStructure.list.SingleLinkedList;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ListQueue {
-    SingleLinkedList list;
+public class ListQueue<T> {
+    SingleLinkedList<T> list;
     int n;
     int count;
     Node tail;
@@ -27,12 +27,12 @@ public class ListQueue {
         return true;
     }
 
-    public String dequeue() {
+    public T dequeue() {
         if (this.count == 0) {
             log.warn("队列已空，无数据可以出队");
             return null;
         }
-        String item = (String) list.head.data;
+        T item = list.head.data;
         list.head = list.head.next;
         count --;
         return item;

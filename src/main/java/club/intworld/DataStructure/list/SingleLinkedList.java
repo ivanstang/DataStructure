@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class SingleLinkedList implements Serializable {
+public class SingleLinkedList<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     int size;
-    public Node head;
+    public Node<T> head;
 
     public SingleLinkedList() {
         this.head = null;
