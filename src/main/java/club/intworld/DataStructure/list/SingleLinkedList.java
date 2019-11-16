@@ -56,7 +56,11 @@ public class SingleLinkedList implements Serializable {
     /* 在链表尾部增加结点
     *  时间复杂度O(n2)
     */
-    void addNode(Node node) {
+    public void addNode(Node node) {
+        if (head == null) {
+            this.head = node;
+            return;
+        }
         Node temp = head;
         while (temp.next != null) {
             temp = temp.next;
