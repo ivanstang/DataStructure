@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
-@Component
+//@Component
 @Slf4j
 public class SingleLinkedListTest implements CommandLineRunner {
     @Override
