@@ -10,7 +10,7 @@ import java.util.List;
 public class SingleLinkedList<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    int size;
+    public int size;
     public Node<T> head;
 
     public SingleLinkedList() {
@@ -18,12 +18,12 @@ public class SingleLinkedList<T> implements Serializable {
         this.size = 0;
     }
 
-    SingleLinkedList(Node head) {
+    public SingleLinkedList(Node head) {
         this.head = head;
         this.size = 1;
     }
 
-    SingleLinkedList deepCopy() throws IOException, ClassNotFoundException {
+    public SingleLinkedList deepCopy() throws IOException, ClassNotFoundException {
         //序列化
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
@@ -36,7 +36,7 @@ public class SingleLinkedList<T> implements Serializable {
     }
 
     /* 打印链表内容 */
-    void printList() {
+    public void printList() {
         if (this.hasLoop()) {
             log.warn("该链表中有死循环，无法进行操作！");
             return;
@@ -101,7 +101,7 @@ public class SingleLinkedList<T> implements Serializable {
     }
 
     /* 在链表指定位置删除结点 */
-    void deleteNode(int index) {
+    public void deleteNode(int index) {
         if (index > size || index < 1) {
             log.info("该链表内共有{}个结点", size);
             log.info("输入的位置 {} 已超出当前链表的范围",index);
@@ -126,7 +126,7 @@ public class SingleLinkedList<T> implements Serializable {
     }
 
     /* 删除链表倒数第n个结点 */
-    void deleteIndexFromEnd(int indexFromEnd) {
+    public void deleteIndexFromEnd(int indexFromEnd) {
         this.deleteNode(this.size-indexFromEnd+1);
     }
 
@@ -147,7 +147,7 @@ public class SingleLinkedList<T> implements Serializable {
     }
 
     /* 查找链表的中间结点 */
-    Node findCenterNode() {
+    public Node findCenterNode() {
         Node temp = this.head;
         for (int i = 0; i < this.size/2; i++) {
             temp = temp.next;
@@ -156,7 +156,7 @@ public class SingleLinkedList<T> implements Serializable {
     }
 
     /* 移动指定结点至指定位置 */
-    void moveNode(int from, int to) {
+    public void moveNode(int from, int to) {
         if (from == to) {
             return;
         }
@@ -193,7 +193,7 @@ public class SingleLinkedList<T> implements Serializable {
     }
 
     /* 转置（倒排）链表 */
-    void reverse() {
+    public void reverse() {
         Node prev = null;
         Node next;
         while (head != null) {
@@ -208,7 +208,7 @@ public class SingleLinkedList<T> implements Serializable {
     }
 
     /* 检查链表中是否有环 */
-    boolean hasLoop() {
+    public boolean hasLoop() {
         Node temp = head;
         int i = 1;
         while (temp != null) {
@@ -224,7 +224,7 @@ public class SingleLinkedList<T> implements Serializable {
     /* 按照从小到大排序链表
     *  时间复杂度O(n2)
     */
-    void sortByAsc() {
+    public void sortByAsc() {
         if (this.size < 2) {
             return;
         }
@@ -250,7 +250,7 @@ public class SingleLinkedList<T> implements Serializable {
     *  通过新建链表来实现
     *  时间复杂度O(m+n)
     * */
-    SingleLinkedList combineOrderedList(SingleLinkedList list) {
+    public SingleLinkedList combineOrderedList(SingleLinkedList list) {
         Node head = new Node();
         SingleLinkedList combined = new SingleLinkedList(head);
         Node temp1 = this.head;
@@ -293,7 +293,7 @@ public class SingleLinkedList<T> implements Serializable {
      *  通过简单合并链表，并重新排序来实现
      *  时间复杂度O(n2)
      * */
-    SingleLinkedList combineOrderedList2(SingleLinkedList list) {
+    public SingleLinkedList combineOrderedList2(SingleLinkedList list) {
         Node temp = this.head;
         while (temp.next != null) {
             temp = temp.next;

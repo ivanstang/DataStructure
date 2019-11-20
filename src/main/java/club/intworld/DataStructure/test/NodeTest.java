@@ -1,12 +1,13 @@
-package club.intworld.DataStructure.list;
+package club.intworld.DataStructure.test;
 
+import club.intworld.DataStructure.list.Node;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
-@Component
+//@Component
 @Slf4j
 public class NodeTest implements CommandLineRunner {
     Node head;

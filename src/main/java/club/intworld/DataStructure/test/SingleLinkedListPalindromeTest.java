@@ -1,5 +1,7 @@
-package club.intworld.DataStructure.list;
+package club.intworld.DataStructure.test;
 
+import club.intworld.DataStructure.list.Node;
+import club.intworld.DataStructure.list.SingleLinkedList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 
