@@ -10,8 +10,6 @@ import java.util.Random;
 @Component
 @Slf4j
 public class SortTest implements CommandLineRunner {
-    private int[] array;
-    private int n;
     private Node head;
     private int k = 0;
 
@@ -36,25 +34,45 @@ public class SortTest implements CommandLineRunner {
 //
 //        head.print();
 
-        createArray(6);
-        int[] array2 = array.clone();
-        selectSort(array);
-        log.info("选择交换共交换了{}次",k);
 
-        k = 0;
-        insertionSort(array2,n);
-        log.info("插入交换共交换了{}次",k);
+//        int[] array2 = array.clone();
+//        selectSort(array);
+//        log.info("选择交换共交换了{}次",k);
+//
+//        k = 0;
+//        insertionSort(array2,n);
+//        log.info("插入交换共交换了{}次",k);
+//        int[] merged = mergeArray(createArray(4),createArray(3));
+//        printArray(merged);
+        int[] array = createArray(6);
+        mergeSort(array,array.length);
+
+        printArray(array,"排序后");
+
+//        for (int i = 0; i < array.length; i++) {
+//            log.info(""+array[i]);
+//        }
     }
 
-    private void createArray(int n) {
-        this.n = n;
-        this.array = new int[n];
+    private int[] createArray(int n) {
+        log.info("=== 创建数组 ===");
+        int[] array = new int[n];
         int data;
         for (int i = 0; i < n; i++) {
             data = new Random().nextInt(10000);
             array[i] = data;
             log.info("" + data);
         }
+        log.info("=== 创建数组完毕 ===");
+        return array;
+    }
+
+    private void printArray(int[] array, String title) {
+        log.info("=== 打印数组（{}） ===", title);
+        for (int i = 0; i < array.length; i++) {
+            log.info("" + array[i]);
+        }
+        log.info("=== 数组（{}）打印完毕 ===", title);
     }
 
     private void createArrayLinked(int n) {
@@ -165,6 +183,75 @@ public class SortTest implements CommandLineRunner {
             arr[minIndex] = temp;
             k = k++;
         }
+    }
+
+    public void mergeSort(int[] arr, int n) {
+        mergeSortC(arr,0,n);
+    }
+
+    //递归函数
+    private void mergeSortC(int[] arr, int p, int r) {
+        // 递归终止条件
+        if (p >= r) return;
+
+        //取p、r中间值
+        int q = (p+r)/2;
+
+        mergeSortC(arr,p,q);
+        mergeSortC(arr,q+1,r);
+
+        int[] first = new int[q-p+1];
+        int[] second = new int[r-q];
+        int i = 0;
+        int j = 0;
+        for (int l = 0; l < (first.length+second.length); l++) {
+            if (l <= q) {
+                first[i] = arr[l];
+                i ++;
+            } else {
+                second[j] = arr[l];
+                j++;
+            }
+        }
+
+        printArray(first,"first");
+        printArray(first,"second");
+
+        arr = mergeArray(first, second);
+    }
+
+    private int[] mergeArray(int[] arr1, int[] arr2) {
+        int[] merged = new int[arr1.length+arr2.length];
+        int i = 0;
+        int j = 0;
+        int l = 0;
+        while (i < arr1.length && j < arr2.length) {
+            if (arr1[i] <= arr2[j]) {
+                merged[l] = arr1[i];
+                i ++;
+                l ++;
+            } else {
+                merged[l] = arr2[j];
+                j ++;
+                l ++;
+            }
+        }
+
+        for (;i < arr1.length; i++) {
+            merged[l] = arr1[i];
+            l ++;
+        }
+
+        for (;j < arr2.length; j++) {
+            merged[l] = arr2[j];
+            l ++;
+        }
+//        log.info("=== sorted ===");
+//        for (int l = 0; l < sorted.length; l++) {
+//            log.info(""+sorted[l]);
+//        }
+//        log.info("=== end sorted ===");
+        return merged;
     }
 
     public void insertionSortLinked(Node head) {
